@@ -40,14 +40,15 @@ export default function App() {
 
 function Input({ onSetToDo, editItem, onChange }) {
   const [toDo, setToDo] = useState("");
+
   return (
     <div>
       <div>
         {editItem ? (
           <input
             type="text"
-            value={editItem}
-            onChange={(e) => onChange(e.target.value)}
+            placeholder={editItem}
+            onChange={(e) => setToDo(e.target.value)}
           />
         ) : (
           <input
@@ -58,7 +59,11 @@ function Input({ onSetToDo, editItem, onChange }) {
           />
         )}
 
-        <button onClick={() => onSetToDo(toDo)}>Add Task</button>
+        <button
+          onClick={editItem ? () => onChange(toDo) : () => onSetToDo(toDo)}
+        >
+          Add Task
+        </button>
       </div>
     </div>
   );
